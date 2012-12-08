@@ -1,0 +1,10 @@
+Welcome to the home of the beCycle project.
+
+The application can be downloaded here: https://play.google.com/store/apps/details?id=be.emich.villo
+
+You can download the project but you will need the following library projects in order to compile:
+- ActionBarSherlock http://actionbarsherlock.com/
+- ViewPagerIndicator http://viewpagerindicator.com/
+- MapView balloons https://github.com/jgilfelt/android-mapviewballoons
+
+Enjoy !
