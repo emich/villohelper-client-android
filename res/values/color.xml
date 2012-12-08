@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="availability_red">#DD0000</color>
+	<color name="availability_green">#007700</color>
+	<color name="availability_orange">#DD5000</color>
+	<color name="availability_regular">#777777</color>
+	<color name="regular">#555555</color>
+	<color name="lighter">#999999</color>
+	<color name="border_grey">#CCCCCC</color>
+	<color name="background">#E8E8E8</color>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/menuDirections"
+        android:icon="@drawable/ic_location_directions"
+        android:title="@string/action_directions"
+        android:showAsAction="always"/>
+    
+    <item
+        android:id="@+id/menuFavorite"
+        android:icon="@drawable/ic_rating_important"
+        android:title="@string/action_add_to_favorite"
+        android:showAsAction="always"/>
+
+</menu>

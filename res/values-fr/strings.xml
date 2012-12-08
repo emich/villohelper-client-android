@@ -1,0 +1,43 @@
+<resources>
+
+    <string name="app_name">beCycle</string>
+    <string name="menu_settings">Règlages</string>
+    <string name="title_activity_main">beCycle</string>
+    <string name="system_all">Tous</string>
+    <string name="system_brussels">Bruxelles (Villo)</string>
+	<string name="system_antwerp">Anvers (AVelo)</string>
+	<string name="system_namur">Namur (Li Bia Velo)</string>
+	<string name="label_syncing">Synchronisation en cours...</string>
+	<string name="tab_all">Toutes</string>
+	<string name="tab_nearby">Proches</string>
+	<string name="tab_favs">Favoris</string>
+	<string name="label_empty_stationlist">Aucune station trouvée</string>
+	<string name="action_map">Carte</string>
+	<string name="action_start">Démarrer</string>
+	<string name="action_stop">Arrêter</string>
+	<string name="header_address">ADRESSE</string>
+	<string name="header_availability">DISPONIBILITE</string>
+	<string name="label_loading">Chargement en cours...</string>
+	<string name="label_not_available">Pas disponible.</string>
+	<string name="label_bike_availability_none">Aucun vélo disponible en ce moment</string>
+	<string name="label_bike_availability_one">Vite, il n\'en reste plus qu\'un!</string>
+	<string name="label_bike_availability_multiple">%d vélos disponibles</string>
+	<string name="label_parking_availability_none">Complet</string>
+	<string name="label_parking_availability_one">Vite, il n\'en reste plus qu\'une place!</string>
+	<string name="label_parking_availability_multiple">%d places disponibles</string>
+	<string name="action_add_to_favorite">Ajouter aux favoris</string>
+	<string name="action_remove_from_favorite">Retirer des favoris</string>
+	<string name="action_directions">Navigation</string>
+	<string name="title_nearby">Carte</string>
+	<string name="dialog_title_about">A propos</string>
+	<string name="dialog_content_about">Application par Michaël Uyttersprot / eMich Labs.\n\nL\'application n\'est pas officielle et l\'exactitude des données n\'est pas garantie.</string>
+	<string name="dialog_action_feedback">Donnez des étoiles!</string>
+	<string name="dialog_action_ok">OK</string>
+	<string name="action_about">A propos</string>
+	<string name="dialog_title_error_parsing">Erreur</string>
+	<string name="dialog_content_error_parsing">Une erreur d\'interprétation de données est survenue. Veuillez réessayer plus tard.</string>
+	<string name="dialog_title_error_connecting">Erreur</string>
+	<string name="dialog_content_error_connecting">Une erreur de connexion est survenue. Veuillez réessayer plus tard.</string>
+	<string name="label_closed">Cette station est actuellement fermée</string>
+	<string name="label_card_accepted">Possibilité de payer avec carte de crédit</string>
+</resources>

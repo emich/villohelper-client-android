@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="64dp" >
+
+    <TextView
+        android:id="@+id/textViewStationAvailableParking"
+        style="@android:style/TextAppearance.Small"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:gravity="right"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingRight="8dp"
+        android:textColor="@color/availability_regular"
+        android:textStyle="normal" />
+    
+    <TextView
+        android:id="@+id/textViewStationAvailableBikes"
+        style="@android:style/TextAppearance.Small"
+        android:layout_width="40dp"
+        android:textSize="25sp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="right"
+        android:layout_toLeftOf="@+id/textViewStationAvailableParking"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/availability_regular"
+        android:textStyle="normal" />
+    
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#CCCCCC" />
+    
+        <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/textViewStationAvailableBikes">
+
+        <TextView
+            android:id="@+id/textViewStationName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="0dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="0dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            style="@style/StationName"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/textViewStationDistance"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="0dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="0dp"
+            android:textColor="#777777"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</RelativeLayout>

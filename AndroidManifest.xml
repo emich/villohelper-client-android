@@ -1,0 +1,52 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="be.emich.villo"
+    android:versionCode="9"
+    android:versionName="1.0.2"
+    android:installLocation="auto">
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="15" />
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        
+        android:name="be.emich.labs.villohelper.application.VilloHelperApplication">
+        
+	    <uses-library android:name="com.google.android.maps" />
+    
+	    <activity
+            android:name="be.emich.labs.villohelper.activity.MainActivity"
+            android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="be.emich.labs.villohelper.activity.DetailActivity"
+            android:label="@string/title_activity_main"
+            />
+        
+        <activity
+            android:name="be.emich.labs.villohelper.activity.NearbyMapActivity"
+            android:label="@string/title_nearby"
+            />
+        
+        <provider android:name="be.emich.labs.villohelper.provider.VilloProvider"
+            android:authorities="be.emich.labs.villohelper"
+            android:exported="false">
+            
+        </provider>
+    </application>
+
+</manifest>

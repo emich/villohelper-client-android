@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background">
+    
+    <View
+        android:id="@+id/viewClosed"
+        android:visibility="gone"
+        android:layout_width="fill_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/bg_closed"/>
+    
+	<LinearLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_margin="10dp"
+	    android:orientation="vertical"
+	    android:background="@drawable/bg_detail">
+	
+		<TextView
+			android:id="@+id/textViewStationName"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:text="SQUARE ARMAND STREURS"
+		    android:textSize="35sp"
+		    android:singleLine="false"
+		    android:layout_marginTop="4dp"
+		    android:layout_marginLeft="12dp"
+		    android:layout_marginRight="12dp"
+		    android:textColor="@color/availability_regular"
+		    />
+		
+		<ImageView
+		    android:layout_width="fill_parent"
+		    android:layout_height="100dp"
+		    android:id="@+id/imageViewMap"
+		    
+		    android:layout_marginLeft="8dp"
+		    android:layout_marginRight="8dp"/>
+		
+		<LinearLayout 
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical"
+		    android:layout_margin="12dp">
+		    
+		    <TextView
+                style="@style/HeaderTextView"
+                android:id="@+id/textViewHeaderAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/header_address"
+                />
+		    
+		    <View
+		        android:layout_marginTop="5dp"
+		        android:layout_marginBottom="5dp"
+		        android:layout_width="fill_parent"
+		        android:layout_height="1dp"
+		        android:background="@color/border_grey"
+		    />
+		    
+		    <TextView
+                style="@style/TextViewDetailNormal"
+                android:id="@+id/textViewDetailAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_loading"
+                />
+		    
+   		    <TextView
+                style="@style/HeaderTextView"
+                android:id="@+id/textViewHeaderAvailability"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/header_availability"
+                android:layout_marginTop="10dp"
+                />
+		    
+		    <View
+		        android:layout_marginTop="5dp"
+		        android:layout_marginBottom="5dp"
+		        android:layout_width="fill_parent"
+		        android:layout_height="1dp"
+		        android:background="@color/border_grey"
+		    />
+		    
+		    <LinearLayout
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:id="@+id/layoutAvailability"
+		        android:orientation="vertical">
+			    <LinearLayout
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="horizontal"
+			        android:gravity="center_vertical">
+			        
+			        <ImageView
+			            android:layout_width="25dp"
+			            android:layout_height="25dp"
+			            android:layout_marginRight="5dp"
+			            android:id="@+id/imageViewBikes"
+			            android:src="@drawable/ic_bike"/>
+			        
+			        <TextView
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:id="@+id/textViewBikes"
+			            style="@style/TextViewDetailNormal"
+			            android:text="10 vélos"/>
+			        
+			     </LinearLayout>
+			     
+			    <LinearLayout
+			        android:layout_marginTop="8dp"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="horizontal"
+			        android:gravity="center_vertical">
+			        
+			        <ImageView
+			            android:id="@+id/imageViewParking"
+			            android:layout_width="25dp"
+			            android:layout_height="25dp"
+			            android:layout_marginRight="5dp"
+			            android:src="@drawable/ic_parking"/>
+			        
+			        <TextView
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:id="@+id/textViewParking"
+			            style="@style/TextViewDetailNormal"
+			            android:text="5 emplacements libres"/>
+			        
+			    </LinearLayout>
+			    
+		    	<TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:id="@+id/textViewCardAccepted"
+		            style="@style/TextViewDetailNormal"
+		            android:text="@string/label_card_accepted"
+		            android:visibility="gone"
+		            android:layout_marginLeft="0dp"
+		            android:layout_marginTop="8dp"
+		            />
+			    
+		    </LinearLayout>
+		    
+		    <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:id="@+id/textViewStationClosed"
+		            style="@style/TextViewDetailNormal"
+		            android:text="@string/label_closed"
+		            android:visibility="gone"
+		            />
+		    
+		    
+		</LinearLayout>
+		
+	
+	</LinearLayout>
+	
+    
+    
+</LinearLayout>

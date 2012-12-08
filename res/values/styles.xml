@@ -1,0 +1,62 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppTheme" parent="@style/Theme.Sherlock.Light.DarkActionBar">
+        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
+        <item name="android:listViewStyle">@style/ListViewStyle</item>
+        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
+        <item name="android:actionBarStyle">@style/Widget.Styled.ActionBar</item>
+        <item name="actionBarStyle">@style/Widget.Styled.ActionBar</item>
+    </style>
+
+    <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
+        <item name="android:background">@drawable/tab_indicator_ab_villohelper</item>
+        <item name="android:textColor">#FFDDDDDD</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:divider">@drawable/tab_divider</item>
+        <item name="android:dividerPadding">10dp</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:fadingEdge">horizontal</item>
+        <item name="android:fadingEdgeLength">8dp</item>
+    </style>
+    
+	<style name="Widget.Styled.ActionBar" parent="Widget.Sherlock.Light.ActionBar.Solid.Inverse">
+	    <item name="background">@drawable/bg_titlebar</item>
+	    <item name="android:background">@drawable/bg_titlebar</item>
+	    <item name="android:indeterminateProgressStyle">@style/BeCycleIndeterminateProgress</item>
+        <item name="indeterminateProgressStyle">@style/BeCycleIndeterminateProgress</item>
+	</style>
+
+    <style name="NativeListViewStyle" />
+
+    <style name="ListViewStyle" parent="NativeListViewStyle">
+        <item name="android:dividerHeight">0dp</item>
+        <item name="android:divider">@null</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+    <style name="StationName" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/regular</item>
+        <item name="android:textSize">16.5sp</item>
+    </style>
+    
+    <style name="HeaderTextView" parent="@android:style/TextAppearance.Medium">
+    	<item name="android:textColor">@color/regular</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+    </style>
+    
+    <style name="TextViewDetailNormal"  parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/lighter</item>
+        <item name="android:textSize">16.5sp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+    </style>
+    
+    <style name="BeCycleIndeterminateProgress" parent="@android:style/Widget.ProgressBar.Small">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+    </style>
+
+</resources>
