@@ -1,12 +1,10 @@
 package be.emich.labs.villohelper.activity;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-
-import be.emich.labs.villohelper.application.VilloHelperApplication;
-import android.app.Dialog;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.Window;
+import be.emich.labs.villohelper.application.VilloHelperApplication;
+
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 public class VilloHelperActivity extends SherlockFragmentActivity {
 	private VilloHelperApplication app;

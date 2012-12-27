@@ -39,7 +39,7 @@ public class Station extends XMLParser {
 	
 	public Station(boolean isClosest,double currentLatitude,double currentLongitude,String language){
 		this();
-		contentValues.put(IS_CLOSEST, isClosest);
+		if(isClosest)contentValues.put(IS_CLOSEST, isClosest);
 		this.isClosest = isClosest;
 		this.currentLatitude = currentLatitude;
 		this.currentLongitude = currentLongitude;

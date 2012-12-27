@@ -40,4 +40,6 @@
 	<string name="dialog_content_error_connecting">Une erreur de connexion est survenue. Veuillez réessayer plus tard.</string>
 	<string name="label_closed">Cette station est actuellement fermée</string>
 	<string name="label_card_accepted">Possibilité de payer avec carte de crédit</string>
+	<string name="dialog_title_map_mode">Mode</string>
+	<string name="dialog_action_cancel">Annuler</string>
 </resources>

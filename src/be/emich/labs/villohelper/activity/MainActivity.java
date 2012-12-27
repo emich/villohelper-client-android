@@ -2,6 +2,7 @@ package be.emich.labs.villohelper.activity;
 
 import java.util.Calendar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -220,6 +221,16 @@ public class MainActivity extends VilloHelperActivity implements OnStationsTaskC
 		intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=be.emich.villo")); 
 		startActivity(intent);
 		getApp().trackEvent("click", "rating", "rating");
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		//Nothing to do in this case;
+	}
+
+	@Override
+	public void doNeutralClick() {
+		//Nothing to see, move along...
 	}
 	
 }

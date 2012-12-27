@@ -31,7 +31,7 @@
 	<string name="action_directions">Directions</string>
 	<string name="title_nearby">Nearby</string>
 	<string name="dialog_title_about">About</string>
-	<string name="dialog_content_about">Application by Michaël Uyttersprot / eMich Labs.\n\nThis application is not official in any way and does not guarantee 100% correctness.</string>
+	<string name="dialog_content_about" formatted="false">Application by Michaël Uyttersprot / eMich Labs.\n\nThis application is not official in any way and does not guarantee 100% correctness.</string>
 	<string name="dialog_action_feedback">Rate me!</string>
 	<string name="dialog_action_ok">OK</string>
 	<string name="action_about">About</string>
@@ -41,4 +41,6 @@
 	<string name="dialog_content_error_connecting">There was an error connecting. Please try again later.</string>
 	<string name="label_closed">This station is closed at the moment</string>
 	<string name="label_card_accepted">Payment can be done by using a credit card</string>
+	<string name="dialog_title_map_mode">Map mode</string>
+	<string name="dialog_action_cancel">Cancel</string>
 </resources>

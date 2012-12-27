@@ -2,7 +2,8 @@ package be.emich.labs.villohelper.activity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationListener;
@@ -11,38 +12,40 @@ import android.os.Bundle;
 import android.view.Window;
 import be.emich.labs.villohelper.application.VilloHelperApplication;
 import be.emich.labs.villohelper.exception.ErrorType;
-import be.emich.labs.villohelper.map.StationItemizedOverlay;
-import be.emich.labs.villohelper.map.StationOverlayItem;
+import be.emich.labs.villohelper.fragment.AlertDialogFragment;
+import be.emich.labs.villohelper.fragment.AlertDialogFragment.AlertDialogListener;
+import be.emich.labs.villohelper.map.AvailabilityInfoWindowAdapter;
 import be.emich.labs.villohelper.parser.Station;
 import be.emich.labs.villohelper.provider.DataHelper;
 import be.emich.labs.villohelper.task.GetAllStationsTask;
 import be.emich.labs.villohelper.task.GetAllStationsTask.OnStationsTaskCompletedListener;
 import be.emich.labs.villohelper.util.Availability;
 import be.emich.labs.villohelper.util.IntentUtil;
-import be.emich.labs.villohelper.util.Log;
 import be.emich.villo.R;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.android.maps.GeoPoint;
-import com.google.android.maps.MapView;
-import com.google.android.maps.MyLocationOverlay;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class NearbyMapActivity extends SherlockMapActivity implements OnStationsTaskCompletedListener, LocationListener {
-
-	private MapView mapView;
+public class NearbyMapActivity extends VilloHelperActivity implements OnStationsTaskCompletedListener, LocationListener, OnInfoWindowClickListener, AlertDialogListener{
+	private GoogleMap googleMap;
 	private DataHelper dataHelper;
-	private MyLocationOverlay myLocationOverlay;
 	private LocationManager mLocationManager;
 	private boolean mIsLocationSet=false;
 	
-	private StationItemizedOverlay<StationOverlayItem> itemsRed;
-	private StationItemizedOverlay<StationOverlayItem> itemsOrange;
-	private StationItemizedOverlay<StationOverlayItem> itemsGreen;
-	private StationItemizedOverlay<StationOverlayItem> itemsGrey;
-	
 	public static int DIALOG_ERROR_PARSING=1;
 	public static int DIALOG_ERROR_CONNECTING=2;
+	
+	private enum MapMode {MAP,HYBRID,RELIEF};
 	
 	public static final String EXTRA_IS_LOCATION_SET=IntentUtil.EXTRA_IS_LOCATION_SET;
 	
@@ -50,19 +53,23 @@ public class NearbyMapActivity extends SherlockMapActivity implements OnStations
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		setContentView(R.layout.activity_map);
+		setContentView(R.layout.activity_map2);
 		
-		mapView = (MapView)findViewById(R.id.mapview);
+		googleMap = ((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+		
+		googleMap.setMyLocationEnabled(true);
+		googleMap.setIndoorEnabled(true);
+		googleMap.setInfoWindowAdapter(new AvailabilityInfoWindowAdapter(this));
+		googleMap.setOnInfoWindowClickListener(this);
+		setMapMode(getApp().getMapMode());
 		
 		dataHelper = VilloHelperApplication.getInstance().getDataHelper();
+		
+		mLocationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		VilloHelperApplication app = VilloHelperApplication.getInstance();
-		
-		myLocationOverlay = new MyLocationOverlay(this, mapView);
-		myLocationOverlay.enableMyLocation();
-		mLocationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		
 		if(bundle!=null){
 			mIsLocationSet = bundle.getBoolean(EXTRA_IS_LOCATION_SET);
@@ -81,17 +88,12 @@ public class NearbyMapActivity extends SherlockMapActivity implements OnStations
 				location.setLatitude(app.getCurrentSystem().getCenterLatitude());
 				location.setLongitude(app.getCurrentSystem().getCenterLongitude());
 			}
-						
-			mapView.getController().setCenter(new GeoPoint((int)(location.getLatitude()*1E6), (int)(location.getLongitude()*1E6)));
-			mapView.getController().setZoom(17);
 			
 			GetAllStationsTask taskAllStations = new GetAllStationsTask(app.getCurrentSystem().getSystemId(),app.getLanguage(),false);
 			taskAllStations.setOnStationsTaskCompletedListener(this);
 			taskAllStations.execute();
 			setProgressBarIndeterminateVisibility(true);
 		}
-		
-		mapView.setBuiltInZoomControls(true);
 		
 	}
 	
@@ -103,17 +105,8 @@ public class NearbyMapActivity extends SherlockMapActivity implements OnStations
 	}
 	
 	@Override
-	protected void onResume() {
-		super.onResume();
-		mapView.getOverlays().add(myLocationOverlay);
-		myLocationOverlay.enableMyLocation();
-	}
-	
-	@Override
 	protected void onPause() {
-		mapView.getOverlays().remove(myLocationOverlay);
 		mLocationManager.removeUpdates(this);
-		myLocationOverlay.disableMyLocation();
 		super.onPause();
 	}
 	
@@ -138,29 +131,20 @@ public class NearbyMapActivity extends SherlockMapActivity implements OnStations
 			return true;
 		}
 		else if(item.getItemId()==R.id.menuMode){
-			mapView.setSatellite(!mapView.isSatellite());
+			//FIXME
+			//mapView.setSatellite(!mapView.isSatellite());
+			AlertDialogFragment adf = AlertDialogFragment.newInstance(AlertDialogFragment.TYPE_MAP_MODE);
+			adf.show(getSupportFragmentManager(), "mapmode");
 		}
 		return super.onOptionsItemSelected(item);
 	}
 	
 	private void bindData(){
 		
-		if(itemsRed!=null){
-			mapView.getOverlays().remove(itemsRed);
-			//mapView.getOverlays().remove(itemsGreen);
-			//mapView.getOverlays().remove(itemsOrange);
-			
-		}
-
-		itemsRed = new StationItemizedOverlay<StationOverlayItem>(getResources().getDrawable(R.drawable.ic_placemark_red), mapView);
-		itemsGreen = new StationItemizedOverlay<StationOverlayItem>(getResources().getDrawable(R.drawable.ic_placemark_green), mapView);
-		itemsOrange = new StationItemizedOverlay<StationOverlayItem>(getResources().getDrawable(R.drawable.ic_placemark_orange), mapView);
-		itemsGrey = new StationItemizedOverlay<StationOverlayItem>(getResources().getDrawable(R.drawable.ic_placemark_grey), mapView);
-		
-		
-		boolean isCheckedIn = VilloHelperApplication.getInstance().isCheckedIn();
+		googleMap.clear();
 		
 		Cursor c = dataHelper.getAllStations();
+		
 		if(c.getCount()>0){
 			c.moveToFirst();
 			while(!c.isAfterLast()){
@@ -173,52 +157,60 @@ public class NearbyMapActivity extends SherlockMapActivity implements OnStations
 				double latitude = c.getDouble(c.getColumnIndex(Station.LATITUDE));
 				double longitude = c.getDouble(c.getColumnIndex(Station.LONGITUDE));
 				
-				//Log.v(getClass().getName(), "Latitude: "+latitude);
-				
-				GeoPoint geoPoint = new GeoPoint((int)(latitude*1E6), (int)(longitude*1E6));
-				
-				StationOverlayItem item = new StationOverlayItem(geoPoint, stationName, bikes, parking, ticket, open, id);
-				
 				int number = bikes;
+				
+				boolean isCheckedIn = VilloHelperApplication.getInstance().isCheckedIn();
+				
 				if(isCheckedIn){
 					number = parking;
 				}
 				
 				if(!open){
-					itemsGrey.addOverlay(item);
+					
+					googleMap.addMarker(new MarkerOptions()
+						.position(new LatLng(latitude,longitude))
+	                    .title(stationName)
+	                    .snippet(id)
+	                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_placemark_grey)));
 				}else{
 					if(Availability.getLevel(number).equals(Availability.NONE)){
-						itemsRed.addOverlay(item);
+						googleMap.addMarker(new MarkerOptions()
+	                    .position(new LatLng(latitude,longitude))
+	                    .title(stationName)
+	                    .snippet(id)
+	                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_placemark_red)));
 					}
 					else if(Availability.getLevel(number).equals(Availability.PARTIAL)){
-						itemsOrange.addOverlay(item);
+						googleMap.addMarker(new MarkerOptions()
+	                    .position(new LatLng(latitude,longitude))
+	                    .title(stationName)
+	                    .snippet(id)
+	                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_placemark_orange)));
 					}
 					else if(Availability.getLevel(number).equals(Availability.AVAILABLE)){
-						itemsGreen.addOverlay(item);
+						googleMap.addMarker(new MarkerOptions()
+	                    .position(new LatLng(latitude,longitude))
+	                    .title(stationName)
+	                    .snippet(id)
+	                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_placemark_green)));
 					}
 					else{
-						itemsGrey.addOverlay(item);
+						googleMap.addMarker(new MarkerOptions()
+	                    .position(new LatLng(latitude,longitude))
+	                    .title(stationName)
+	                    .snippet(id)
+	                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_placemark_grey)));
 					}
 				}
-				
-				Log.v(getClass().getName(),"Item added "+geoPoint.toString()+"/"+geoPoint.getLatitudeE6()+":"+geoPoint.getLongitudeE6());
 				
 				c.moveToNext();
 			}
 		}
+		
 		c.close();
 		
-		if(itemsRed.size()>0)mapView.getOverlays().add(itemsRed);
-		if(itemsOrange.size()>0)mapView.getOverlays().add(itemsOrange);
-		if(itemsGreen.size()>0)mapView.getOverlays().add(itemsGreen);
-		if(itemsGrey.size()>0)mapView.getOverlays().add(itemsGrey);
 	}
 	
-	@Override
-	protected boolean isRouteDisplayed() {
-		return false;
-	}
-
 	@Override
 	public void onStationsTaskCompleted(GetAllStationsTask task) {
 		setProgressBarIndeterminateVisibility(false);
@@ -260,8 +252,11 @@ public class NearbyMapActivity extends SherlockMapActivity implements OnStations
 	public void onLocationChanged(Location location) {
 		mLocationManager.removeUpdates(this);
 		
-		GeoPoint geoPoint = new GeoPoint((int)(location.getLatitude()*1E6),(int)(location.getLongitude()*1E6));
-		mapView.getController().animateTo(geoPoint);
+		LatLng pos = new LatLng(location.getLatitude(), location.getLongitude());
+		CameraPosition position = new CameraPosition(pos, 16, 0, 0);
+		CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(position);
+		googleMap.moveCamera(cameraUpdate);
+		
 		
 		mIsLocationSet=true;
 	}
@@ -278,4 +273,43 @@ public class NearbyMapActivity extends SherlockMapActivity implements OnStations
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 	}
 
+	@Override
+	public void onInfoWindowClick(Marker marker) {
+		String id = marker.getSnippet();
+		Intent i = new Intent(this,DetailActivity.class);
+		i.putExtra(DetailActivity.EXTRA_ID, id);
+		i.putExtra(DetailActivity.EXTRA_SYSTEM, getApp().getCurrentSystem().getSystemId());
+		startActivity(i);
+	}
+	
+	@Override
+	public void doNegativeClick() {
+	}
+	
+	@Override
+	public void doPositiveClick() {
+	}
+	
+	@Override
+	public void doNeutralClick() {
+	}
+	
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		setMapMode(which);
+		getApp().setMapMode(which);
+	}
+	
+	private void setMapMode(int mapMode){
+		if(mapMode==MapMode.MAP.ordinal()){
+			googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+		}
+		else if(mapMode==MapMode.HYBRID.ordinal()){
+			googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+		}
+		else if(mapMode==MapMode.RELIEF.ordinal()){
+			googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+		}
+		
+	}
 }

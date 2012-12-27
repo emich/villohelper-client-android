@@ -25,6 +25,7 @@ public class VilloHelperApplication extends Application {
 	public static final String HAS_DONE_FIRST_SYNC = "be.emich.labs.villohelper.has_done_first_sync";
 	public static final String LAST_SYNC = "be.emich.labs.villohelper.last_sync";
 	public static final String IS_CHECKED_IN = "be.emich.labs.villohelper.is_checked_in";
+	public static final String MAPMODE = "be.emich.labs.villohelper.map_mode";
 	
 	public static VilloHelperApplication instance;
 	
@@ -160,6 +161,16 @@ public class VilloHelperApplication extends Application {
 		Editor editor = prefs.edit();
 		editor.putBoolean(IS_CHECKED_IN, isCheckedIn);
 		editor.commit();
+	}
+	
+	public void setMapMode(int mapMode){
+		Editor editor = prefs.edit();
+		editor.putInt(MAPMODE, mapMode);
+		editor.commit();
+	}
+	
+	public int getMapMode(){
+		return prefs.getInt(MAPMODE, 0);
 	}
 	
 }

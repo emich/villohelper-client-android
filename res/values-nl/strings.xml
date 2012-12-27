@@ -35,4 +35,6 @@
 	<string name="dialog_content_error_connecting">Kan geen verbinding maken. Probeer later opnieuw.</string>
 	<string name="label_closed">Dit station is op dit ogenblik gesloten</string>
 	<string name="label_card_accepted">Betaling met kredietkaart mogelijk</string>
+	<string name="dialog_title_map_mode">Kaartmodus</string>
+	<string name="dialog_action_cancel">Annuleer</string>
 </resources>

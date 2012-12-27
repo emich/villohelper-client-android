@@ -6,6 +6,6 @@ public class IntentUtil {
 	public static final String EXTRA_MODE = PACKAGE+"extra.mode";
 
 	public static final String EXTRA_ID = PACKAGE+"extra.id";
-	public static final String EXTRA_SYSTEM = PACKAGE+"extra.id";
+	public static final String EXTRA_SYSTEM = PACKAGE+"extra.system";
 	public static final String EXTRA_IS_LOCATION_SET = PACKAGE+"extra.is_location_set";
 }

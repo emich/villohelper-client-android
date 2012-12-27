@@ -1,8 +1,5 @@
 package be.emich.labs.villohelper.util;
 
-import be.emich.villo.BuildConfig;
-
-
 public class Log {
 	public static boolean LOG_ENABLED=false;//BuildConfig.DEBUG;
 	

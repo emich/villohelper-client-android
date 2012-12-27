@@ -68,6 +68,7 @@ public class VilloProvider extends BaseContentProvider {
 				db.delete(Station.ENTITY_NAME, Station.FLAG_FOR_DELETE+"=1", null);
 				db.setTransactionSuccessful();
 				notifyChange(MODE_INSERT,uri);
+				notifyChange(MODE_INSERT,VilloProvider.URI_STATIONS);
 				Log.v(getClass().getName(),"DONE! "+uri);
 			}
 			finally{
